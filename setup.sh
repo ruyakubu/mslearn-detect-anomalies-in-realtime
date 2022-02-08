@@ -5,6 +5,18 @@ echo '             Resource Setup Started'
 echo '--------------------------------------------------------'
 
 # Set enviroment variables
+
+# radomly select anomaly detector preview locations
+array[0]="eastus"
+array[1]="eastus2"
+array[2]="southcentralus"
+array[3]="uksouth"
+array[4]="westeurope"
+array[5]="westus2"
+size=${#array[@]}
+index=$(($RANDOM % $size))
+# echo ${array[$index]}
+
 AccountId=$(az account list --query '[0].id'  --output tsv)
 RgName=$(az group list --query '[0].name'  --output tsv)
 Location=$(az group list --query '[0].location'  --output tsv)
@@ -13,7 +25,7 @@ stName='store'
 iot='myLearnIoTHub'
 ad='anomaly'
 
-GaLocation=eastus2
+GaLocation=${array[$index]}
 StorageAcctName=$stName$UUID
 StorageContainerName=learninputcontainer
 OuputStorageContainerName=learnoutputcontainer
